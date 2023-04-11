@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
 $stmt->close();
 $conn->close();
 
-
+$full_link = "https://carcraze.co/followme/profile.php?id=" . $id;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +48,31 @@ $conn->close();
     <?php if ($facebook): ?><p><a href="<?php echo htmlspecialchars($facebook); ?>" target="_blank">Facebook</a></p><?php endif; ?>
     <?php if ($twitter): ?><p><a href="<?php echo htmlspecialchars($twitter); ?>" target="_blank">Twitter</a></p><?php endif; ?>
     <?php if ($instagram): ?><p><a href="<?php echo htmlspecialchars($instagram); ?>" target="_blank">Instagram</a></p><?php endif; ?>
-    <button onclick="followAll()">Follow All</button>
+    
+
+    Shareable Link: <span id="content"><?php echo $full_link; ?></span>
+    <button onclick="copyInnerHTML()">Copy Inner HTML</button>
+
+    <script>
+        async function copyInnerHTML() {
+            var contentDiv = document.getElementById("content");
+            var innerHTML = contentDiv.innerHTML;
+
+            try {
+                await navigator.clipboard.writeText(innerHTML);
+                alert("Link copied");
+            } catch (err) {
+                console.error("Error copying inner HTML: ", err);
+            }
+        }
+    </script>
+
+
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=557244249120978&autoLogAppEvents=1" nonce="7lA0EvzT"></script>
+
+
 </body>
 </html>
 
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=557244249120978&autoLogAppEvents=1" nonce="7lA0EvzT"></script>
+
