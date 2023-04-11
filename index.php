@@ -55,7 +55,8 @@ function generateShortCode() {
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 class="text-center mt-5">Social Media App</h1>
+                <h1 class="text-center mt-5">Follow Me</h1>
+                <p class='text-center'>Enter your links below to create a unique shareable link. </p>
                 <form action="index.php" method="post" class="mt-4">
                     <div class="form-group">
                         <label for="name">Name:</label>
@@ -74,6 +75,7 @@ function generateShortCode() {
                         <input type="text" name="instagram" id="instagram" class="form-control" placeholder="Instagram username">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Generate URL</button>
+                    <a href='stream.php' class='btn btn-success btn-block'>See Stream</a>
                 </form>
             </div>
         </div>
