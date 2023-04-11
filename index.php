@@ -57,7 +57,8 @@ function generateShortCode() {
             <div class="col-md-6">
                 <h1 class="text-center mt-5">Follow Me</h1>
                 <p class='text-center'>Enter your links below to create a unique shareable link. </p>
-                <form action="index.php" method="post" class="mt-4">
+                <form  action="index.php" method="post" class="mt-4">
+                    <div id='form-inputs'>
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -74,13 +75,44 @@ function generateShortCode() {
                         <label for="instagram">Instagram:</label>
                         <input type="text" name="instagram" id="instagram" class="form-control" placeholder="Instagram username">
                     </div>
+                    </div>
+                    <button type="button" id="addInput" class="btn btn-primary mb-2">+</button>
                     <button type="submit" class="btn btn-primary btn-block">Generate URL</button>
                     <a href='stream.php' class='btn btn-success btn-block'>See Stream</a>
+                    
                 </form>
             </div>
         </div>
     </div>
 
+<script>
+   let inputCount = 0;
+
+function addInputField() {
+    inputCount++;
+    const inputGroup = document.createElement('div');
+    inputGroup.className = 'form-group';
+
+    const label = document.createElement('label');
+    label.htmlFor = 'input' + inputCount;
+    label.textContent = 'Other:  ' + inputCount;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control';
+    input.id = 'input' + inputCount;
+    input.placeholder = "Other link"
+
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(input);
+
+    document.getElementById('form-inputs').appendChild(inputGroup);
+}
+
+document.getElementById('addInput').addEventListener('click', addInputField);
+
+</script>
+    
     <!-- Add the Bootstrap and jQuery JavaScript files -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
