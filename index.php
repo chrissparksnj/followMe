@@ -90,6 +90,7 @@ function generateShortCode() {
 
 function addInputField() {
     inputCount++;
+
     const inputGroup = document.createElement('div');
     inputGroup.className = 'form-group';
 
@@ -103,14 +104,25 @@ function addInputField() {
     input.id = 'input' + inputCount;
     input.placeholder = "Other link"
 
+    const button = document.createElement("button")
+    button.className = "btn btn-danger btn-block mt-1"
+    button.textContent = "-"
+    button.onclick = function(){
+        deleteField(inputGroup)
+    }
+
     inputGroup.appendChild(label);
     inputGroup.appendChild(input);
+    inputGroup.appendChild(button);
 
     document.getElementById('form-inputs').appendChild(inputGroup);
 }
 
 document.getElementById('addInput').addEventListener('click', addInputField);
 
+function deleteField(field){
+    field.remove()
+}
 </script>
     
     <!-- Add the Bootstrap and jQuery JavaScript files -->
