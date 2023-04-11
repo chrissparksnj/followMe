@@ -24,8 +24,35 @@ if ($result->num_rows > 0) {
     exit;
 }
 
+if (!isset($_COOKIE['viewed'])) {
+    // Increment the view count in the database
+    $sql = "UPDATE follow_me_table SET views = views + 1 where short_code = ?";
+    $stmt2 = $conn->prepare($sql);
+    $stmt2->bind_param("s", $id);
+    $stmt2->execute();
+    $stmt2->close();
+    // Set the cookie for a specified duration (e.g., 1 day)
+    setcookie('viewed', 'true', time() + 86400);
+}
+
+
+
+
+
+$sql = "SELECT views FROM follow_me_table WHERE short_code = ?";
+$stmt3 = $conn->prepare($sql);
+$stmt3->bind_param("s", $id);
+$stmt3->execute();
+
+$result = $stmt3->get_result();
+$row = $result->fetch_assoc();
+$views = $row['views'];
+
+$stmt3->close();
 $stmt->close();
 $conn->close();
+
+
 
 $full_link = "https://carcraze.co/followme/profile.php?id=" . $id;
 ?>
@@ -44,9 +71,10 @@ $full_link = "https://carcraze.co/followme/profile.php?id=" . $id;
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h1 class="text-center mt-5"><small><a href='https://carcraze.co/followme/'>Follow Me</a></small></h1>
-                <h1 class="text-center mt-5"><?php echo htmlspecialchars($name); ?>'s Profile</h1>
+                <h1 class="text-center"><?php echo htmlspecialchars($name); ?>'s Profile</h1>
+                <h3 class="text-center"><span class='badge badge-secondary'>Views: <?php echo $views; ?></span></h3>
                 <div class="mt-4">
-                    <h4>Social Media Profiles</h4>
+                    
                     <ul class="list-unstyled">
                         <?php if (!empty($facebook)): ?>
                             <li>
